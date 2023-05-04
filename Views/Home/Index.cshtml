@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+
+<h2 class="h2">EXERCICIO 01 E 02</h2>
+<pre class="h5">
+1. Faça a aplicação permitir a digitação de números e mostre esses números em tela de forma
+ordenada.
+2. Agora grave os números visualizados cada 1 em uma linha em um arquivo texto na pasta raiz da
+aplicação de nome numeros_ordenar.txt.
+</pre>
+
+<div class="flex">
+    <form method="post" action='/Home/ListarNumeros' enctype="multipart/form-data">
+        <input type="text" name="numero" placeholder="teste">
+        <button type="submit">Postar</button>
+    </form>
+
+    <form method="post" action='/Home/Limpar' enctype="multipart/form-data">
+        <button type="submit">Limpar</button>
+    </form>
+</div>
+
+
+@if (ViewBag.numeros != null)
+{
+    foreach (var numero in ViewBag.numeros)
+    {
+        <p style="text-align: center;">@numero</p>
+    }
+}
+ 
+
+<br>
+<br>
+<br>
+<br>
+
+<h2 class="h2">EXERCICIO 03, 04 E 05</h2>
+
+<pre class="h5">
+3. Crie uma lista contendo 100 itens de uma classe de nome clsTeste com as propriedades codigo
+como número e descricao como texto, os objetos deverão ser criados com a propriedade codigo
+com números sequenciais (ex: 1,2,3,4,5) e a descricao como a data e hora atual (ex: 2022/10/13
+08:50:22.123)
+4. Grave a lista do item 3, em um arquivo de nome data.json na pasta raiz da aplicação.
+5. Crie um Grid, leia o arquivo data.json que foi gravado, e mostre os dados no Grid criado.
+</pre>
+
+<form method="post" action='/Home/CriarLista' enctype="multipart/form-data">
+    <button type="submit">Criar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <th scope="col">Id</th>
+        <th scope="col">Descricao</th>
+    </thead>
+
+    <tbody>
+        @if (ViewBag.cls != null)
+        {
+            foreach (var item in ViewBag.cls)
+            {
+                <tr>
+                    <td>@item.codigo</td>
+                    <td>@item.descricao</td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2 class="h2">Exercicio 06</h2>
+<pre class="h5">
+6. Consuma o webservice dos correios passando um CEP qualquer e mostre em tela o endereço que o
+mesmo retornar.
+</pre>
+
+<form method="post" action='/Home/ConsultaCEP' enctype="multipart/form-data">
+    <input type="text" name="cep" placeholder="Digite um CEP" />
+    <button type="submit">Consultar</button>
+</form>
+
+@if (@ViewBag.cep != null)
+{
+    <p class="h6"> <strong>CEP</strong> @ViewBag.cep.cep</p>
+    <p class="h6"> <strong>Logradouro:</strong> @ViewBag.cep.logradouro</p>
+    <p class="h6"> <strong>Complemento:</strong> @ViewBag.cep.complemento</p>
+    <p class="h6"> <strong>Bairro:</strong> @ViewBag.cep.bairro</p>
+    <p class="h6"> <strong>Cidade:</strong> @ViewBag.cep.localidade</p>
+    <p class="h6"> <strong>UF:</strong> @ViewBag.cep.uf</p>
+    <p class="h6"> <strong>IBGE:</strong> @ViewBag.cep.ibge</p>
+    <p class="h6"> <strong>GIA:</strong> @ViewBag.cep.gia</p>
+    <p class="h6"> <strong>DDD:</strong> @ViewBag.cep.ddd</p>
+    <p class="h6"> <strong>SIAFI:</strong> @ViewBag.cep.siafi</p>
+}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2 class="h2">Exercicio 07</h2>
+<pre class="h5">
+7. Consuma a API para buscar a lista de bancos brasileiros
+</pre>
+
+<form method="post" action='/Home/ListarBancos' enctype="multipart/form-data">
+    <button type="submit">Listar Bancos</button>
+</form>
+
+@if (ViewBag.bancos != null)
+{
+    foreach (var banco in ViewBag.bancos)
+    {
+        <h3>@banco.fullName</h3>
+        <p>@banco.name</p>
+        <p>@banco.ispb</p>
+        <p>@banco.code</p>
+
+        <br/>
+
+    }
+}
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2 class="h2">Exercicio 08</h2>
+<pre class="h5">
+8. Pela aplicação faça o download da imagem https://redeservice.com.br/wpcontent/uploads/2020/07/redeservice-logo.png, colocar na pasta do sistema, e criar alguma
+função para ler essa imagem e mostrar em tela no formato base64
+</pre>
+
+
+<form method="post" action='/Home/Imagem' enctype="multipart/form-data">
+    <button type="submit">Mostrar Codigo base64 da imagem</button>
+</form>
+
+@if (ViewBag.img != null)
+{
+    <p class="h6" style="width: 80%;">@ViewBag.img</p>
+}
+
